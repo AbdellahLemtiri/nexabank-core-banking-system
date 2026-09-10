@@ -54,7 +54,7 @@ public class Compte {
             throw new MontantNegatifException("Le montant du retrait doit être strictement supérieur à zéro.");
         }
         if (montant > this.solde) {
-            throw new SoldeInsuffisantException(String.format("Solde insuffisant (Solde actuel: %.2f €, Montant demandé: %.2f €)", this.solde, montant));
+            throw new SoldeInsuffisantException(String.format("Solde insuffisant (Solde actuel: %.2f dh, Montant demandé: %.2f dh)", this.solde, montant));
         }
         this.solde -= montant;
     }
