@@ -17,19 +17,9 @@ public class ConsoleMenu {
     public ConsoleMenu() {
         this.banqueService = new BanqueService();
         this.scanner = new Scanner(System.in);
-        initialiserDonneesTest();
     }
 
-    private void initialiserDonneesTest() {
-        try {
-            Client c1 = new Client("CLI-01", "Lemtiri", "Abdellah", "abdellah@nexabank.ma", "pass123");
-            banqueService.ajouterClient(c1);
-            banqueService.ouvrirCompte("CLI-01", "C1001", 1500.0, TypeCompte.COURANT);
-            banqueService.ouvrirCompte("CLI-01", "C1002", 5000.0, TypeCompte.EPARGNE);
-        } catch (Exception e) {
-            // Initialisation silencieuse
-        }
-    }
+
 
     public void demarrer() {
         int choix = -1;

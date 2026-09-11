@@ -29,17 +29,17 @@ public class FichierService {
         File fichier = new File(getCheminFichier(numeroCompte));
         if (!fichier.exists()) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fichier))) {
-                writer.write("================================================================================");
+                writer.write("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|");
                 writer.newLine();
-                writer.write("                       RELEVE BANCAIRE - NEXABANK                              ");
+                writer.write("|                       RELEVE BANCAIRE - NEXABANK                             |");
                 writer.newLine();
-                writer.write("Compte : " + numeroCompte);
+                writer.write("| Compte : " + numeroCompte+"                                              |");                                                      
                 writer.newLine();
-                writer.write("================================================================================");
+                writer.write("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|");
                 writer.newLine();
-                writer.write("Date       | Type     | Montant  | Compte Source  | Compte Destination");
+                writer.write("| Date      | Type     | Montant  | Compte Source  | Compte Destination        |");
                 writer.newLine();
-                writer.write("--------------------------------------------------------------------------------");
+                writer.write("|------------------------------------------------------------------------------|");
                 writer.newLine();
             } catch (IOException e) {
                 throw new FichierException("Erreur lors de l'initialisation du fichier relevé pour " + numeroCompte, e);
