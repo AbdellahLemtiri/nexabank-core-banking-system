@@ -1,5 +1,6 @@
 package com.nexabank.ui;
 
+import com.nexabank.exception.ClientInexistantException;
 import com.nexabank.exception.NexaBankException;
 import com.nexabank.model.Client;
 import com.nexabank.model.Compte;
@@ -19,8 +20,6 @@ public class ConsoleMenu {
         this.scanner = new Scanner(System.in);
     }
 
-
-
     public void demarrer() {
         int choix = -1;
         do {
@@ -38,10 +37,10 @@ public class ConsoleMenu {
                         System.out.println("\nMerci d'avoir utilisé NexaBank. Au revoir !");
                         break;
                     default:
-                        System.out.println("\n[ERREUR] Choix invalide. Veuillez réessayer.");
+                        System.out.println("\n Choix invalide. Veuillez réessayer.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("\n[ERREUR] Veuillez saisir un nombre valide.");
+                System.out.println("\n Veuillez saisir un nombre valide.");
             }
         } while (choix != 0);
     }
@@ -64,7 +63,7 @@ public class ConsoleMenu {
 
         try {
             Client client = banqueService.authentifierClient(identifiant, mdp);
-            System.out.println("\n[SUCCÈS] Bienvenue, " + client.getNomComplet() + " !");
+            System.out.println("\n Bienvenue, " + client.getNomComplet() + " !");
 
             int choix = -1;
             do {
@@ -99,17 +98,17 @@ public class ConsoleMenu {
                             System.out.println("Déconnexion de l'espace client.");
                             break;
                         default:
-                            System.out.println("[ERREUR] Option inconnue.");
+                            System.out.println(" Option inconnue.");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("[ERREUR] Saisie numérique attendue.");
+                    System.out.println(" Saisie numérique attendue.");
                 } catch (NexaBankException e) {
                     System.out.println("\n[ERREUR MÉTIER] " + e.getMessage());
                 }
             } while (choix != 0);
 
         } catch (NexaBankException e) {
-            System.out.println("\n[ÉCHEC CONNEXION] " + e.getMessage());
+            System.out.println("\n " + e.getMessage());
         }
     }
 
@@ -133,7 +132,7 @@ public class ConsoleMenu {
         double montant = Double.parseDouble(scanner.nextLine());
 
         banqueService.deposer(numCompte, montant);
-        System.out.println("\n[SUCCÈS] Dépôt effectué avec succès.");
+        System.out.println("\n Dépôt effectué avec succès.");
     }
 
     private void executerRetrait(Client client) throws NexaBankException {
@@ -145,7 +144,7 @@ public class ConsoleMenu {
         double montant = Double.parseDouble(scanner.nextLine());
 
         banqueService.retirer(numCompte, montant);
-        System.out.println("\n[SUCCÈS] Retrait effectué avec succès.");
+        System.out.println("\n Retrait effectué avec succès.");
     }
 
     private void executerVirement(Client client) throws NexaBankException {
@@ -160,7 +159,7 @@ public class ConsoleMenu {
         double montant = Double.parseDouble(scanner.nextLine());
 
         banqueService.virer(numSource, numDest, montant);
-        System.out.println("\n[SUCCÈS] Virement exécuté avec succès.");
+        System.out.println("\n Virement exécuté avec succès.");
     }
 
     private void executerConsulterReleve(Client client) throws NexaBankException {
@@ -182,22 +181,23 @@ public class ConsoleMenu {
     }
 
     private void menuEspaceGestionnaire() {
-        System.out.print("\nIdentifiant Gestionnaire (ex: ADMIN01) : ");
+        System.out.print("\nIdentifiant Gestionnaire = hhh123 ,admin123 : ");
         String idGest = scanner.nextLine();
         System.out.print("Mot de passe : ");
         String mdp = scanner.nextLine();
 
         try {
             Gestionnaire gest = banqueService.authentifierGestionnaire(idGest, mdp);
-            System.out.println("\n[SUCCÈS] Bienvenue, Gestionnaire " + gest.getNomComplet() + " !");
+            System.out.println("\n Bienvenue, Gestionnaire " + gest.getNomComplet() + " !");
 
             int choix = -1;
             do {
                 System.out.println("\n--- ESPACE GESTIONNAIRE ---");
                 System.out.println("1. Enregistrer un nouveau client");
                 System.out.println("2. Ouvrir un compte pour un client");
-                System.out.println("3. Clôturer un compte client");
-                System.out.println("4. Consulter le relevé d'un client");
+                System.out.println("3. Modifier un compte pour un client");
+                System.out.println("4. Clôturer un compte client");
+                System.out.println("5. Consulter le relevé d'un client");
                 System.out.println("0. Se déconnecter");
                 System.out.print("Votre choix : ");
 
@@ -211,27 +211,50 @@ public class ConsoleMenu {
                             ouvrirCompteClient();
                             break;
                         case 3:
-                            cloturerCompteClient();
+                            ModifierInfoClient();
                             break;
                         case 4:
+                            cloturerCompteClient();
+                            break;
+                        case 5:
                             consulterReleveGestionnaire();
                             break;
                         case 0:
                             System.out.println("Déconnexion de l'espace gestionnaire.");
                             break;
                         default:
-                            System.out.println("[ERREUR] Option inconnue.");
+                            System.out.println(" Option inconnue.");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("[ERREUR] Saisie numérique attendue.");
+                    System.out.println(" Saisie numérique attendue.");
                 } catch (NexaBankException e) {
                     System.out.println("\n[ERREUR MÉTIER] " + e.getMessage());
                 }
             } while (choix != 0);
 
         } catch (NexaBankException e) {
-            System.out.println("\n[ÉCHEC CONNEXION GESTIONNAIRE] " + e.getMessage());
+            System.out.println("\n" + e.getMessage());
         }
+    }
+
+    private void afficherClient(String idClient) throws ClientInexistantException {
+        banqueService.afficherClient(idClient);
+    }
+
+    private void ModifierInfoClient() throws ClientInexistantException {
+        System.out.print("Entre le Id de client : ");
+        String idClient = scanner.nextLine();
+        afficherClient(idClient);
+        System.out.print("Entre le nom de client : ");
+        String nom = scanner.nextLine();
+        System.out.print("Entre le prenome de client : ");
+        String prenom = scanner.nextLine();
+        System.out.print("Entre le email de client : ");
+        String email = scanner.nextLine();
+        System.out.print("Entre le mot de passe de client : ");
+        String motDePasse = scanner.nextLine();
+        banqueService.ModifierInfoClient(idClient, nom, prenom, email, motDePasse);
+        System.out.print("les information de client modifie avec succés !");
     }
 
     private void creerNouveauClient() {
@@ -248,7 +271,7 @@ public class ConsoleMenu {
 
         Client nouveau = new Client(id, nom, prenom, email, mdp);
         banqueService.ajouterClient(nouveau);
-        System.out.println("\n[SUCCÈS] Client " + prenom + " " + nom + " enregistré avec succès !");
+        System.out.println("\n Client " + prenom + " " + nom + " enregistré avec succès !");
     }
 
     private void ouvrirCompteClient() throws NexaBankException {
@@ -265,7 +288,7 @@ public class ConsoleMenu {
         TypeCompte type = (typeChoix == 2) ? TypeCompte.EPARGNE : TypeCompte.COURANT;
 
         banqueService.ouvrirCompte(idClient, numCompte, solde, type);
-        System.out.println("\n[SUCCÈS] Compte " + numCompte + " ouvert et initialisé avec succès !");
+        System.out.println("\n Compte " + numCompte + " ouvert et initialisé avec succès !");
     }
 
     private void cloturerCompteClient() throws NexaBankException {
@@ -275,7 +298,7 @@ public class ConsoleMenu {
         String numCompte = scanner.nextLine();
 
         banqueService.cloturerCompte(idClient, numCompte);
-        System.out.println("\n[SUCCÈS] Le compte " + numCompte + " a été clôturé.");
+        System.out.println("\n Le compte " + numCompte + " a été clôturé.");
     }
 
     private void consulterReleveGestionnaire() throws NexaBankException {

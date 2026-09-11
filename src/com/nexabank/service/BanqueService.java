@@ -55,19 +55,19 @@ public class BanqueService {
                     soldeInitial,
                     LocalDate.now(),
                     null,
-                    numeroCompte
-            );
+                    numeroCompte);
             nouveauCompte.ajouterTransaction(initialDepot);
             fichierService.enregistrerTransaction(numeroCompte, initialDepot);
         }
         return nouveauCompte;
     }
 
-    public void cloturerCompte(String idClient, String numeroCompte) 
+    public void cloturerCompte(String idClient, String numeroCompte)
             throws ClientInexistantException, CompteInexistantException {
         Client client = trouverClientParId(idClient);
         if (!client.possedeCompte(numeroCompte)) {
-            throw new CompteInexistantException("Le compte " + numeroCompte + " n'appartient pas au client " + idClient);
+            throw new CompteInexistantException(
+                    "Le compte " + numeroCompte + " n'appartient pas au client " + idClient);
         }
         client.supprimerCompte(numeroCompte);
         tousLesComptes.remove(numeroCompte);
@@ -81,7 +81,7 @@ public class BanqueService {
         return compte;
     }
 
-    public void deposer(String numeroCompte, double montant) 
+    public void deposer(String numeroCompte, double montant)
             throws CompteInexistantException, MontantNegatifException, FichierException {
         Compte compte = trouverCompte(numeroCompte);
         compte.deposer(montant);
@@ -92,13 +92,12 @@ public class BanqueService {
                 montant,
                 LocalDate.now(),
                 null,
-                numeroCompte
-        );
+                numeroCompte);
         compte.ajouterTransaction(tx);
         fichierService.enregistrerTransaction(numeroCompte, tx);
     }
 
-    public void retirer(String numeroCompte, double montant) 
+    public void retirer(String numeroCompte, double montant)
             throws CompteInexistantException, MontantNegatifException, SoldeInsuffisantException, FichierException {
         Compte compte = trouverCompte(numeroCompte);
         compte.retirer(montant);
@@ -109,13 +108,12 @@ public class BanqueService {
                 montant,
                 LocalDate.now(),
                 numeroCompte,
-                null
-        );
+                null);
         compte.ajouterTransaction(tx);
         fichierService.enregistrerTransaction(numeroCompte, tx);
     }
 
-    public void virer(String numSource, String numDestination, double montant) 
+    public void virer(String numSource, String numDestination, double montant)
             throws CompteInexistantException, MontantNegatifException, SoldeInsuffisantException, FichierException {
         if (numSource.equalsIgnoreCase(numDestination)) {
             throw new MontantNegatifException("Impossible de virer vers le même compte source.");
@@ -133,14 +131,33 @@ public class BanqueService {
                 montant,
                 LocalDate.now(),
                 numSource,
-                numDestination
-        );
+                numDestination);
 
         source.ajouterTransaction(tx);
         destination.ajouterTransaction(tx);
 
         fichierService.enregistrerTransaction(numSource, tx);
         fichierService.enregistrerTransaction(numDestination, tx);
+    }
+
+    public void afficherClient(String idClient) throws ClientInexistantException {
+        Client cl = trouverClientParId(idClient);
+        System.out.print("entre les nouveau informations de " + cl.getNomComplet() + ": \n");
+    }
+
+    public boolean ModifierInfoClient(String idClient, String nom, String prenom, String email, String motDePasse)
+            throws ClientInexistantException {
+        try {
+            Client client = trouverClientParId(idClient);
+            client.setEmail(email);
+            client.setNom(prenom);
+            client.setPrenom(prenom);
+            client.setMotDePasse(motDePasse);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     public List<String> consulterReleve(String numeroCompte) throws CompteInexistantException, FichierException {
@@ -163,10 +180,9 @@ public class BanqueService {
     }
 
     public Gestionnaire authentifierGestionnaire(String idGestionnaire, String motDePasse) throws NexaBankException {
-        if ("ADMIN01".equalsIgnoreCase(idGestionnaire) && "admin123".equals(motDePasse)) {
-            return new Gestionnaire("ADMIN01", "Alami", "Karim", "admin@nexabank.ma", "admin123");
+        if ("hhh123".equalsIgnoreCase(idGestionnaire) && "admin123".equals(motDePasse)) {
+            return new Gestionnaire("hhh123", "Alami", "Karim", "admin@nexabank.ma", "admin123");
         }
         throw new NexaBankException("Identifiants gestionnaire incorrects.");
     }
 }
-

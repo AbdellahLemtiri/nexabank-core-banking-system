@@ -129,18 +129,9 @@ javac -d bin -sourcepath src src/com/nexabank/Main.java
 java -cp bin com.nexabank.Main
 ```
 
----
-
-## 8. Scénario de Démonstration (Soutenance)
-
-1. **Lancement** : Deux comptes de test sont initialisés (`CPT-001` et `CPT-002`).
-2. **Dépôt (Option 2)** : Créditer `5000 MAD` sur `CPT-001`.
-3. **Test d'Exception (Option 3)** : Tenter de retirer `99999 MAD` sur `CPT-001` $\rightarrow$ Interception propre de `FondsInsuffisantsException`.
-4. **Virement (Option 4)** : Transférer `2000 MAD` de `CPT-001` vers `CPT-002`.
-5. **Historique (Option 7)** : Affichage du relevé complet des transactions horodatées.
 
 ---
 
 ## 👨‍💻 Auteur
-- **Abdellah Lemtiri** - Développeur Java / Apprenant @ [YouCode Maroc](https://youcode.ma/)
+- **Abdellah Lemtiri** - at @ [YouCode Maroc](https://youcode.ma/)
 ```
