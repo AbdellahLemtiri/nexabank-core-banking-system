@@ -27,9 +27,7 @@ public class FichierService {
 
     public void initialiserFichierReleve(String numeroCompte) throws FichierException {
         File fichier = new File(getCheminFichier(numeroCompte));
-
         if (!fichier.exists()) {
-
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fichier))) {
                 writer.write("================================================================================");
                 writer.newLine();
@@ -51,14 +49,11 @@ public class FichierService {
 
     public void enregistrerTransaction(String numeroCompte, Transaction transaction) throws FichierException {
         initialiserFichierReleve(numeroCompte);
-
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(getCheminFichier(numeroCompte), true))) {
-
             writer.write(transaction.toFileFormat());
             writer.newLine();
         } catch (IOException e) {
-            throw new FichierException(
-                    "Erreur lors de l'enregistrement de la transaction dans le relevé " + numeroCompte, e);
+            throw new FichierException("Erreur lors de l'enregistrement de la transaction dans le relevé " + numeroCompte, e);
         }
     }
 

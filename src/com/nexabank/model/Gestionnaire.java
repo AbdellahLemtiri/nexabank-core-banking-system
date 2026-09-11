@@ -1,17 +1,14 @@
 package com.nexabank.model;
 
-public class Gestionnaire extends  Personne
-{
+public class Gestionnaire extends Personne {
     private final String idGestionnaire;
-    
-    public Gestionnaire(String nom, String prenom, String email, String motDePasse,String idGestionnaire)
-    {
+
+    public Gestionnaire(String idGestionnaire, String nom, String prenom, String email, String motDePasse) {
         super(nom, prenom, email, motDePasse);
         this.idGestionnaire = idGestionnaire;
     }
-    
-    public getIdGestionnaire()
-    {
+
+    public String getIdGestionnaire() {
         return idGestionnaire;
     }
 }
