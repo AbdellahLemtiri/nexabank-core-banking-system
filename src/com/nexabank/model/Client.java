@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Client extends Personne {
     private final String idClient;
-    private final HashMap<String, Compte> comptes;
+    private HashMap<String, Compte> comptes;
 
     public Client(String idClient, String nom, String prenom, String email, String motDePasse) {
         super(nom, prenom, email, motDePasse);

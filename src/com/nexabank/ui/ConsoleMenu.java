@@ -103,7 +103,7 @@ public class ConsoleMenu {
                 } catch (NumberFormatException e) {
                     System.out.println(" Saisie numérique attendue.");
                 } catch (NexaBankException e) {
-                    System.out.println("\n[ERREUR MÉTIER] " + e.getMessage());
+                    System.out.println("\n " + e.getMessage());
                 }
             } while (choix != 0);
 
@@ -228,7 +228,7 @@ public class ConsoleMenu {
                 } catch (NumberFormatException e) {
                     System.out.println(" Saisie numérique attendue.");
                 } catch (NexaBankException e) {
-                    System.out.println("\n[ERREUR MÉTIER] " + e.getMessage());
+                    System.out.println("\n " + e.getMessage());
                 }
             } while (choix != 0);
 
@@ -258,7 +258,7 @@ public class ConsoleMenu {
     }
 
     private void creerNouveauClient() {
-        System.out.print("ID Client unique (ex: CLI-02) : ");
+        System.out.print("ID Client unique : ");
         String id = scanner.nextLine();
         System.out.print("Nom : ");
         String nom = scanner.nextLine();

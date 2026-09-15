@@ -13,7 +13,7 @@ public class Transaction {
     private final String compteDestination;
 
     public Transaction(String idTransaction, TypeTransaction type, double montant,
-                       LocalDate date, String compteSource, String compteDestination) {
+            LocalDate date, String compteSource, String compteDestination) {
         this.idTransaction = idTransaction;
         this.type = type;
         this.montant = montant;
@@ -22,21 +22,46 @@ public class Transaction {
         this.compteDestination = compteDestination;
     }
 
-    public String getIdTransaction() { return idTransaction; }
-    public TypeTransaction getType() { return type; }
-    public double getMontant() { return montant; }
-    public LocalDate getDate() { return date; }
-    public String getCompteSource() { return compteSource; }
-    public String getCompteDestination() { return compteDestination; }
+    public String getIdTransaction() {
+        return idTransaction;
+    }
+
+    public TypeTransaction getType() {
+        return type;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getCompteSource() {
+        return compteSource;
+    }
+
+    public String getCompteDestination() {
+        return compteDestination;
+    }
 
     public String toFileFormat() {
         return String.format("%s | %s | %.2f DH | %s | %s",
                 date, type, montant,
                 (compteSource != null ? compteSource : "null"),
-                (compteDestination != null ? compteDestination : "null")
-        );
+                (compteDestination != null ? compteDestination : "null"));
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Transaction that = (Transaction) o;
+        return Objects.equals(idTransaction, that.idTransaction);
+    }
 
     @Override
     public int hashCode() {
@@ -47,6 +72,5 @@ public class Transaction {
     public String toString() {
         return toFileFormat();
     }
-
 
 }
