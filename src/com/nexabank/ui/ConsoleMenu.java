@@ -46,11 +46,11 @@ public class ConsoleMenu {
     }
 
     private void afficherMenuPrincipal() {
-        System.out.println("\n==========================================");
-        System.out.println("         NEXABANK - CONSOLE SYSTEM        ");
-        System.out.println("==========================================");
-        System.out.println("1. Espace Client (Opérations bancaires)");
-        System.out.println("2. Espace Gestionnaire (Administration)");
+        System.out.println("\n===========================================");
+        System.out.println("|               NEXABANK                  |");
+        System.out.println("===========================================");
+        System.out.println("1. Espace Client.");
+        System.out.println("2. Espace Gestionnaire.");
         System.out.println("0. Quitter");
         System.out.print("Votre choix : ");
     }
@@ -181,7 +181,7 @@ public class ConsoleMenu {
     }
 
     private void menuEspaceGestionnaire() {
-        System.out.print("\nIdentifiant Gestionnaire = hhh123 ,admin123 : ");
+        System.out.print("\nIdentifiant Gestionnaire = admin123 ,admin123 : ");
         String idGest = scanner.nextLine();
         System.out.print("Mot de passe : ");
         String mdp = scanner.nextLine();

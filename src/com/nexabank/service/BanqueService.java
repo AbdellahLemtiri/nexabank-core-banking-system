@@ -180,8 +180,8 @@ public class BanqueService {
     }
 
     public Gestionnaire authentifierGestionnaire(String idGestionnaire, String motDePasse) throws NexaBankException {
-        if ("hhh123".equalsIgnoreCase(idGestionnaire) && "admin123".equals(motDePasse)) {
-            return new Gestionnaire("hhh123", "Alami", "Karim", "admin@nexabank.ma", "admin123");
+        if ("admin123".equalsIgnoreCase(idGestionnaire) && "admin123".equals(motDePasse)) {
+            return new Gestionnaire("admin123", "abdellah", "lemtiri", "admin@nexabank.ma", "admin123");
         }
         throw new NexaBankException("Identifiants gestionnaire incorrects.");
     }

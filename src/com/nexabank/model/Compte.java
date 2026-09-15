@@ -42,7 +42,7 @@ public class Compte {
             throw new MontantNegatifException("Le montant du retrait doit être strictement supérieur à zéro.");
         }
         if (montant > this.solde) {
-            throw new SoldeInsuffisantException(String.format("Solde insuffisant (Solde actuel: %.2f DH, Montant demandé: %.2f DH)", this.solde, montant));
+            throw new SoldeInsuffisantException(String.format("Solde insuffisant Solde actuel: %.2f DH, Montant demande: %.2f DH", this.solde, montant));
         }
         this.solde -= montant;
     }
@@ -55,6 +55,6 @@ public class Compte {
 
     @Override
     public String toString() {
-        return String.format("[%s] Compte %s | Solde: %.2f DH", typeCompte, numeroCompte, solde);
+        return String.format("%s - Compte %s | Solde: %.2f DH", typeCompte, numeroCompte, solde);
     }
 }
